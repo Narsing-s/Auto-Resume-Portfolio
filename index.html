@@ -1,29 +1,59 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Resume → Portfolio</title>
 <meta charset="UTF-8">
-https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js
+<title>Resume → Portfolio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <style>
-body { font-family: Arial; background:#f2f2f2 }
-header { background:#0077b6; color:white; text-align:center; padding:30px }
-section { background:white; max-width:900px; margin:25px auto; padding:30px; border-radius:10px }
-.skill { display:inline-block; background:#0077b6; color:white; padding:6px 12px; margin:4px; border-radius:16px }
-button { background:#0077b6; color:white; border:none; padding:10px 14px; border-radius:6px }
+body { font-family: Arial; background:#f4f6f8; margin:0 }
+header {
+  background:#0077b6;
+  color:white;
+  text-align:center;
+  padding:30px;
+}
+header img {
+  width:140px;
+  height:140px;
+  border-radius:50%;
+  border:4px solid white;
+  object-fit:cover;
+  cursor:pointer;
+}
+section {
+  background:white;
+  max-width:900px;
+  margin:25px auto;
+  padding:30px;
+  border-radius:10px;
+}
+.skill {
+  display:inline-block;
+  background:#0077b6;
+  color:white;
+  padding:6px 12px;
+  margin:4px;
+  border-radius:16px;
+}
+button { padding:10px 14px; background:#0077b6; color:white; border:none; border-radius:6px; }
 </style>
 </head>
 
 <body>
 
 <header id="portfolio">
+  <input type="file" id="photoUpload" hidden accept="image/*">
+  <img src="https://via.placeholder.com/140" id="photo">
   <h1 id="name">Your Name</h1>
   <p id="role">Your Role</p>
 </header>
 
 <section>
   <input type="file" id="resume">
-  <button onclick="build()">Generate Portfolio</button>
+  <button onclick="generate()">Generate Portfolio</button>
   <button onclick="exportPDF()">Export PDF</button>
   <p id="status"></p>
 </section>
@@ -49,34 +79,45 @@ button { background:#0077b6; color:white; border:none; padding:10px 14px; border
 </section>
 
 <script>
-async function build() {
+photo.onclick = () => photoUpload.click();
+photoUpload.onchange = e =>
+  photo.src = URL.createObjectURL(e.target.files[0]);
+
+async function generate() {
   const file = resume.files[0];
   if (!file) return alert("Upload resume");
 
-  status.innerText = "Creating template...";
+  status.innerText = "Parsing resume using AI…";
 
-  const fd = new FormData();
-  fd.append("resume", file);
+  try {
+    const fd = new FormData();
+    fd.append("resume", file);
 
-  const res = await fetch("http://localhost:5000/parse-resume", {
-    method: "POST",
-    body: fd
-  });
+    const res = await fetch("http://localhost:5000/parse-resume", {
+      method: "POST",
+      body: fd
+    });
 
-  const data = await res.json();
+    const data = await res.json();
+    if (data.error) throw data.error;
 
-  name.innerText = data.name;
-  role.innerText = data.role;
-  summary.innerText = data.summary;
-  projects.innerText = data.projects;
-  education.innerText = data.education;
+    name.innerText = data.name;
+    role.innerText = data.role;
+    summary.innerText = data.summary;
+    projects.innerText = data.projects;
+    education.innerText = data.education;
 
-  skills.innerHTML = "";
-  data.skills.forEach(s =>
-    skills.innerHTML += `<span class="skill">${s}</span>`
-  );
+    skills.innerHTML = "";
+    data.skills.forEach(s =>
+      skills.innerHTML += `<span class="skill">${s}</span>`
+    );
 
-  status.innerText = "✅ Portfolio template created automatically";
+    status.innerText =
+      `✅ Portfolio created (Resume versions: ${data.versions})`;
+
+  } catch (e) {
+    status.innerText = "❌ Failed to parse resume";
+  }
 }
 
 function exportPDF() {
