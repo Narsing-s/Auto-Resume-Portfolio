@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Resume → Portfolio</title>
+<meta charset="UTF-8">
+https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js
+
+<style>
+body { font-family: Arial; background:#f2f2f2 }
+header { background:#0077b6; color:white; text-align:center; padding:30px }
+section { background:white; max-width:900px; margin:25px auto; padding:30px; border-radius:10px }
+.skill { display:inline-block; background:#0077b6; color:white; padding:6px 12px; margin:4px; border-radius:16px }
+button { background:#0077b6; color:white; border:none; padding:10px 14px; border-radius:6px }
+</style>
+</head>
+
+<body>
+
+<header id="portfolio">
+  <h1 id="name">Your Name</h1>
+  <p id="role">Your Role</p>
+</header>
+
+<section>
+  <input type="file" id="resume">
+  <button onclick="build()">Generate Portfolio</button>
+  <button onclick="exportPDF()">Export PDF</button>
+  <p id="status"></p>
+</section>
+
+<section>
+  <h2>About</h2>
+  <p id="summary"></p>
+</section>
+
+<section>
+  <h2>Skills</h2>
+  <div id="skills"></div>
+</section>
+
+<section>
+  <h2>Projects</h2>
+  <p id="projects"></p>
+</section>
+
+<section>
+  <h2>Education</h2>
+  <p id="education"></p>
+</section>
+
+<script>
+async function build() {
+  const file = resume.files[0];
+  if (!file) return alert("Upload resume");
+
+  status.innerText = "Creating template...";
+
+  const fd = new FormData();
+  fd.append("resume", file);
+
+  const res = await fetch("http://localhost:5000/parse-resume", {
+    method: "POST",
+    body: fd
+  });
+
+  const data = await res.json();
+
+  name.innerText = data.name;
+  role.innerText = data.role;
+  summary.innerText = data.summary;
+  projects.innerText = data.projects;
+  education.innerText = data.education;
+
+  skills.innerHTML = "";
+  data.skills.forEach(s =>
+    skills.innerHTML += `<span class="skill">${s}</span>`
+  );
+
+  status.innerText = "✅ Portfolio template created automatically";
+}
+
+function exportPDF() {
+  html2pdf().from(portfolio).save("portfolio.pdf");
+}
+</script>
+
+</body>
+</html>
