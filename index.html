@@ -1,129 +1,92 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<title>Resume → Portfolio</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-
-<style>
-body { font-family: Arial; background:#f4f6f8; margin:0 }
-header {
-  background:#0077b6;
-  color:white;
-  text-align:center;
-  padding:30px;
-}
-header img {
-  width:140px;
-  height:140px;
-  border-radius:50%;
-  border:4px solid white;
-  object-fit:cover;
-  cursor:pointer;
-}
-section {
-  background:white;
-  max-width:900px;
-  margin:25px auto;
-  padding:30px;
-  border-radius:10px;
-}
-.skill {
-  display:inline-block;
-  background:#0077b6;
-  color:white;
-  padding:6px 12px;
-  margin:4px;
-  border-radius:16px;
-}
-button { padding:10px 14px; background:#0077b6; color:white; border:none; border-radius:6px; }
-</style>
+<title>Page Title</title>
 </head>
-
 <body>
 
-<header id="portfolio">
-  <input type="file" id="photoUpload" hidden accept="image/*">
-  <img src="https://via.placeholder.com/140" id="photo">
-  <h1 id="name">Your Name</h1>
-  <p id="role">Your Role</p>
-</header>
-
-<section>
-  <input type="file" id="resume">
-  <button onclick="generate()">Generate Portfolio</button>
-  <button onclick="exportPDF()">Export PDF</button>
-  <p id="status"></p>
-</section>
-
-<section>
-  <h2>About</h2>
-  <p id="summary"></p>
-</section>
-
-<section>
+<h1>Resume Builder</h1>
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Narsing - Portfolio</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      color: #333;
+    }
+    header {
+      background: #0077b6;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      background: #023e8a;
+    }
+    nav a {
+      color: white;
+      padding: 14px 20px;
+      text-decoration: none;
+    }
+    nav a:hover {
+      background: #0077b6;
+    }
+    section {
+      padding: 40px;
+      margin: 20px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #0077b6;
+    }
+    footer {
+      text-align: center;
+      padding: 10px;
+      background: #023e8a;
+      color: white;
+    }
+  </style>
+</head>
+<body><header>
+  <h1>Narsing Beesetti</h1>
+  <p>MuleSoft Developer | Integration Specialist</p>
+</header><nav>
+  <a href="#about">About</a>
+  <a href="#skills">Skills</a>
+  <a href="#projects">Projects</a>
+  <a href="#contact">Contact</a>
+</nav><section id="about">
+  <h2>About Me</h2>
+  <p>I have 4 years of IT experience with 3 years of relevant experience in MuleSoft. Currently working in a pharma project as a production support engineer and looking for opportunities in development and integration roles.</p>
+</section><section id="skills">
   <h2>Skills</h2>
-  <div id="skills"></div>
-</section>
-
-<section>
+  <ul>
+    <li>MuleSoft (Anypoint Platform)</li>
+    <li>API Development & Integration</li>
+    <li>Production Support</li>
+    <li>REST APIs</li>
+    <li>CloudHub</li>
+  </ul>
+</section><section id="projects">
   <h2>Projects</h2>
-  <p id="projects"></p>
-</section>
-
-<section>
-  <h2>Education</h2>
-  <p id="education"></p>
-</section>
-
-<script>
-photo.onclick = () => photoUpload.click();
-photoUpload.onchange = e =>
-  photo.src = URL.createObjectURL(e.target.files[0]);
-
-async function generate() {
-  const file = resume.files[0];
-  if (!file) return alert("Upload resume");
-
-  status.innerText = "Parsing resume using AI…";
-
-  try {
-    const fd = new FormData();
-    fd.append("resume", file);
-
-    const res = await fetch("http://localhost:5000/parse-resume", {
-      method: "POST",
-      body: fd
-    });
-
-    const data = await res.json();
-    if (data.error) throw data.error;
-
-    name.innerText = data.name;
-    role.innerText = data.role;
-    summary.innerText = data.summary;
-    projects.innerText = data.projects;
-    education.innerText = data.education;
-
-    skills.innerHTML = "";
-    data.skills.forEach(s =>
-      skills.innerHTML += `<span class="skill">${s}</span>`
-    );
-
-    status.innerText =
-      `✅ Portfolio created (Resume versions: ${data.versions})`;
-
-  } catch (e) {
-    status.innerText = "❌ Failed to parse resume";
-  }
-}
-
-function exportPDF() {
-  html2pdf().from(portfolio).save("portfolio.pdf");
-}
-</script>
-
+  <p><strong>Pharma Integration Project</strong></p>
+  <p>Worked on integrating multiple systems using MuleSoft. Handled production issues, deployments, and API monitoring.</p>
+</section><section id="contact">
+  <h2>Contact</h2>
+  <p>Email: your-email@example.com</p>
+  <p>Phone: +91-XXXXXXXXXX</p>
+</section><footer>
+  <p>© 2026 Narsing Beesetti</p>
+</footer></body>
+</html>
+ 
 </body>
 </html>
