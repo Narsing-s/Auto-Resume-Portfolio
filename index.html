@@ -1,184 +1,210 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Narsing – Portfolio</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Narsing Beesetti | Portfolio</title>
 
-  <style>
-    /* ---------- Base ---------- */
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      color: #333;
-      scroll-behavior: smooth;
-    }
+<style>
+/* ---------- Theme Variables ---------- */
+:root {
+  --bg: #f4f4f4;
+  --text: #333;
+  --primary: #0077b6;
+  --secondary: #023e8a;
+  --card: #ffffff;
+}
 
-    /* ---------- Animations ---------- */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+body.dark {
+  --bg: #0f172a;
+  --text: #e5e7eb;
+  --card: #111827;
+}
 
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(40px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+/* ---------- Base ---------- */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  scroll-behavior: smooth;
+  transition: 0.3s;
+}
 
-    /* ---------- Header ---------- */
-    header {
-      background: #0077b6;
-      color: white;
-      padding: 30px 20px;
-      text-align: center;
-      animation: fadeIn 1s ease forwards;
-    }
+/* ---------- Animations ---------- */
+@keyframes fadeSlide {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
-    header h1 {
-      margin: 0;
-      font-size: 2.2rem;
-    }
+/* ---------- Header ---------- */
+header {
+  background: linear-gradient(120deg, var(--secondary), var(--primary));
+  color: white;
+  text-align: center;
+  padding: 35px 20px;
+  animation: fadeSlide 1s ease forwards;
+}
 
-    header p {
-      margin-top: 8px;
-      font-size: 1.1rem;
-    }
+header h1 {
+  margin: 0;
+  font-size: 2.4rem;
+}
 
-    /* ---------- Navigation ---------- */
-    nav {
-      display: flex;
-      justify-content: center;
-      background: #023e8a;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
+header p {
+  margin-top: 10px;
+  font-size: 1.1rem;
+}
 
-    nav a {
-      color: white;
-      padding: 14px 22px;
-      text-decoration: none;
-      transition: background 0.3s, transform 0.2s;
-    }
+/* ---------- Dark Toggle ---------- */
+.toggle {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  background: var(--card);
+  padding: 8px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0 0 8px rgba(0,0,0,0.2);
+  font-size: 14px;
+}
 
-    nav a:hover {
-      background: #0077b6;
-      transform: translateY(-2px);
-    }
+/* ---------- Navigation ---------- */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  background: var(--secondary);
+}
 
-    /* ---------- Sections ---------- */
-    section {
-      padding: 40px;
-      margin: 30px auto;
-      max-width: 900px;
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
-      opacity: 0;
-      transform: translateY(40px);
-      transition: all 0.8s ease;
-    }
+nav a {
+  color: white;
+  padding: 14px 22px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
 
-    section.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
+nav a:hover {
+  background: var(--primary);
+  transform: translateY(-2px);
+}
 
-    h2 {
-      color: #0077b6;
-      margin-top: 0;
-    }
+/* ---------- Sections ---------- */
+section {
+  max-width: 900px;
+  margin: 30px auto;
+  background: var(--card);
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  opacity: 0;
+  transform: translateY(40px);
+  transition: 0.8s;
+}
 
-    ul {
-      padding-left: 20px;
-    }
+section.show {
+  opacity: 1;
+  transform: translateY(0);
+}
 
-    li {
-      margin-bottom: 6px;
-    }
+h2 {
+  color: var(--primary);
+  margin-top: 0;
+}
 
-    /* ---------- Footer ---------- */
-    footer {
-      text-align: center;
-      padding: 14px;
-      background: #023e8a;
-      color: white;
-      animation: fadeIn 1s ease forwards;
-    }
-  </style>
+ul {
+  padding-left: 20px;
+}
+
+/* ---------- Footer ---------- */
+footer {
+  text-align: center;
+  padding: 14px;
+  background: var(--secondary);
+  color: white;
+  margin-top: 40px;
+}
+</style>
 </head>
 
 <body>
 
-  <header>
-    <h1>Narsingarao Beesetti</h1>
-    <p>MuleSoft Developer | Integration Specialist</p>
-  </header>
+<div class="toggle" onclick="toggleDark()">🌙 Dark</div>
 
-  <nav>
-    <a href="#about">About</a>
-    <a href="#skills">Skills</a>
-    <a href="#projects">Projects</a>
-    <a href="#contact">Contact</a>
-  </nav>
+<header>
+  <h1>Narsing Beesetti</h1>
+  <p>MuleSoft Developer | Integration Specialist</p>
+</header>
 
-  <section id="about">
-    <h2>About Me</h2>
-    <p>
-      I have 4 years of IT experience with 3 years of relevant experience in MuleSoft.
-      Currently working in a pharma project as a production support engineer and
-      looking for opportunities in development and integration roles.
-    </p>
-  </section>
+<nav>
+  <a href="#about">About</a>
+  <a href="#skills">Skills</a>
+  <a href="#projects">Projects</a>
+  <a href="#contact">Contact</a>
+</nav>
 
-  <section id="skills">
-    <h2>Skills</h2>
-    <ul>
-      <li>MuleSoft (Anypoint Platform)</li>
-      <li>API Development & Integration</li>
-      <li>Production Support</li>
-      <li>REST APIs</li>
-      <li>CloudHub</li>
-    </ul>
-  </section>
+<section id="about">
+  <h2>About Me</h2>
+  <p>
+    I have 4 years of IT experience with 3 years of relevant experience in MuleSoft.
+    Currently working in a pharma project as a production support engineer and
+    looking for opportunities in development and integration roles.
+  </p>
+</section>
 
-  <section id="projects">
-    <h2>Projects</h2>
-    <p><strong>Pharma Integration Project</strong></p>
-    <p>
-      Worked on integrating multiple systems using MuleSoft. Handled production issues,
-      deployments, and API monitoring.
-    </p>
-  </section>
+<section id="skills">
+  <h2>Skills</h2>
+  <ul>
+    <li>MuleSoft (Anypoint Platform)</li>
+    <li>API Development & Integration</li>
+    <li>Production Support</li>
+    <li>REST APIs</li>
+    <li>CloudHub</li>
+  </ul>
+</section>
 
-  <section id="contact">
-    <h2>Contact</h2>
-    <p>Email: your-email@example.com</p>
-    <p>Phone: +91‑9494207062</p>
-  </section>
+<section id="projects">
+  <h2>Projects</h2>
+  <p><strong>Pharma Integration Project</strong></p>
+  <p>
+    Integrated multiple enterprise systems using MuleSoft.
+    Handled deployment, monitoring, and production issue resolution.
+  </p>
+</section>
 
-  <footer>
-    <p>© 2026 Narsing Beesetti</p>
-  </footer>
+<section id="contact">
+  <h2>Contact</h2>
+  <p>Email: your-email@example.com</p>
+  <p>Phone: +91‑XXXXXXXXXX</p>
+</section>
 
-  <script>
-    /* Reveal sections on scroll */
-    const sections = document.querySelectorAll("section");
+<footer>
+  © 2026 Narsing Beesetti
+</footer>
 
-    const revealSections = () => {
-      const triggerPoint = window.innerHeight * 0.85;
-      sections.forEach(section => {
-        const rect = section.getBoundingClientRect();
-        if (rect.top < triggerPoint) {
-          section.classList.add("show");
-        }
-      });
-    };
+<script>
+/* Dark Mode */
+function toggleDark() {
+  document.body.classList.toggle("dark");
+}
 
-    window.addEventListener("scroll", revealSections);
-    window.addEventListener("load", revealSections);
-  </script>
+/* Scroll Reveal */
+const sections = document.querySelectorAll("section");
+
+function revealSections() {
+  const trigger = window.innerHeight * 0.85;
+  sections.forEach(sec => {
+    if (sec.getBoundingClientRect().top < trigger) {
+      sec.classList.add("show");
+    }
+  });
+}
+
+window.addEventListener("scroll", revealSections);
+window.addEventListener("load", revealSections);
+</script>
 
 </body>
 </html>
