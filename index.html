@@ -1,141 +1,212 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Narsing Beesetti | Portfolio</title>
-
 <style>
 /* ---------- Theme Variables ---------- */
-:root {
-  --bg: #f4f4f4;
-  --text: #333;
-  --primary: #0077b6;
-  --secondary: #023e8a;
-  --card: #ffffff;
+:root{
+  --bg:#f4f4f4;
+  --text:#111827;
+  --primary:#0077b6;
+  --secondary:#023e8a;
+  --accent:#ff6f61;
+  --card:#ffffff;
+  --muted:#6b7280;
 }
 
-body.dark {
-  --bg: #0f172a;
-  --text: #e5e7eb;
-  --card: #111827;
+body.dark{
+  --bg:#0f172a;
+  --text:#e5e7eb;
+  --card:#0b1220;
+  --muted:#9ca3af;
 }
 
 /* ---------- Base ---------- */
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  scroll-behavior: smooth;
-  transition: 0.3s;
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:Inter, "Segoe UI", Roboto, Arial, sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  scroll-behavior:smooth;
+  transition:background 0.35s, color 0.35s;
+  line-height:1.5;
+  padding-bottom:60px;
 }
 
 /* ---------- Animations ---------- */
-@keyframes fadeSlide {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes fadeSlide{
+  from{opacity:0; transform:translateY(30px)}
+  to{opacity:1; transform:translateY(0)}
+}
+@keyframes gradientShift{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
 }
 
 /* ---------- Header ---------- */
-header {
-  background: linear-gradient(120deg, var(--secondary), var(--primary));
-  color: white;
-  text-align: center;
-  padding: 35px 20px;
-  animation: fadeSlide 1s ease forwards;
+.header-wrap{
+  position:relative;
+  overflow:hidden;
 }
+header{
+  background:linear-gradient(270deg,var(--secondary),var(--primary),var(--accent));
+  background-size:600% 600%;
+  animation:gradientShift 12s ease infinite;
+  color:white;
+  text-align:center;
+  padding:56px 20px;
+  animation:fadeSlide 1s ease forwards;
+}
+header .brand{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+}
+.logo{
+  width:64px;
+  height:64px;
+  border-radius:12px;
+  background:rgba(255,255,255,0.12);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+  font-size:20px;
+  box-shadow:0 6px 18px rgba(2,6,23,0.2);
+}
+header h1{margin:10px 0 0; font-size:2.4rem; letter-spacing:0.2px}
+header p{margin:8px 0 0; font-size:1.05rem; opacity:0.95}
 
-header h1 {
-  margin: 0;
-  font-size: 2.4rem;
+/* ---------- Typing Effect ---------- */
+.typing{
+  border-right:2px solid rgba(255,255,255,0.9);
+  display:inline-block;
+  white-space:nowrap;
+  overflow:hidden;
+  animation:typing 4s steps(30,end), blink 0.7s infinite;
+  max-width:520px;
 }
-
-header p {
-  margin-top: 10px;
-  font-size: 1.1rem;
-}
+@keyframes typing{from{width:0} to{width:100%}}
+@keyframes blink{50%{border-color:transparent}}
 
 /* ---------- Dark Toggle ---------- */
-.toggle {
-  position: fixed;
-  top: 15px;
-  right: 15px;
-  background: var(--card);
-  padding: 8px 14px;
-  border-radius: 20px;
-  cursor: pointer;
-  box-shadow: 0 0 8px rgba(0,0,0,0.2);
-  font-size: 14px;
+.toggle{
+  position:fixed;
+  top:16px;
+  right:16px;
+  background:var(--card);
+  color:var(--text);
+  padding:8px 14px;
+  border-radius:999px;
+  cursor:pointer;
+  box-shadow:0 6px 18px rgba(2,6,23,0.12);
+  font-size:14px;
+  z-index:60;
+  transition:transform 0.18s;
 }
+.toggle:active{transform:scale(0.98)}
 
 /* ---------- Navigation ---------- */
-nav {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  display: flex;
-  justify-content: center;
-  background: var(--secondary);
+nav{
+  position:sticky;
+  top:0;
+  z-index:50;
+  display:flex;
+  justify-content:center;
+  background:var(--secondary);
+  box-shadow:0 6px 18px rgba(2,6,23,0.06);
+}
+nav a{
+  color:white;
+  padding:12px 18px;
+  text-decoration:none;
+  font-weight:600;
+  transition:all 0.18s ease;
+}
+nav a:hover{background:var(--primary); transform:translateY(-2px)}
+
+/* ---------- Container and Sections ---------- */
+.container{
+  max-width:980px;
+  margin:28px auto;
+  padding:0 18px;
+}
+section{
+  background:var(--card);
+  padding:34px;
+  border-radius:12px;
+  box-shadow:0 10px 30px rgba(2,6,23,0.06);
+  margin-bottom:26px;
+  opacity:0;
+  transform:translateY(40px);
+  transition:opacity 0.7s ease, transform 0.7s ease;
+}
+section.show{opacity:1; transform:translateY(0)}
+h2{color:var(--primary); margin:0 0 12px 0}
+p.lead{color:var(--muted); margin:0 0 14px 0}
+
+/* ---------- About Details ---------- */
+.about-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:18px;
+}
+@media(min-width:820px){ .about-grid{grid-template-columns:1fr 320px} }
+
+.card{
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+  padding:18px;
+  border-radius:10px;
+  border:1px solid rgba(2,6,23,0.04);
 }
 
-nav a {
-  color: white;
-  padding: 14px 22px;
-  text-decoration: none;
-  transition: all 0.2s ease;
-}
+/* ---------- Responsibilities List ---------- */
+.resp-list{margin:0; padding-left:18px; color:var(--muted)}
+.resp-list li{margin:10px 0}
 
-nav a:hover {
-  background: var(--primary);
-  transform: translateY(-2px);
-}
+/* ---------- Skills ---------- */
+.skill{margin:12px 0}
+.skill-title{display:flex; justify-content:space-between; font-weight:600; color:var(--muted); margin-bottom:6px}
+.skill-bar{background:#e6e6e6; height:12px; border-radius:999px; overflow:hidden}
+.skill-fill{height:12px; background:linear-gradient(90deg,var(--accent),var(--primary)); width:0; transition:width 1.8s ease}
 
-/* ---------- Sections ---------- */
-section {
-  max-width: 900px;
-  margin: 30px auto;
-  background: var(--card);
-  padding: 40px;
-  border-radius: 10px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-  opacity: 0;
-  transform: translateY(40px);
-  transition: 0.8s;
-}
+/* ---------- Carousel ---------- */
+.carousel{display:flex; gap:18px; overflow-x:auto; padding-bottom:6px}
+.project-card{min-width:260px; background:var(--card); border-radius:10px; padding:16px; box-shadow:0 6px 18px rgba(2,6,23,0.06); border:1px solid rgba(2,6,23,0.03)}
+.project-card h3{margin:0 0 8px 0}
+.project-card p{margin:0; color:var(--muted)}
 
-section.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-h2 {
-  color: var(--primary);
-  margin-top: 0;
-}
-
-ul {
-  padding-left: 20px;
-}
+/* ---------- Contact ---------- */
+.contact-list a{color:var(--primary); text-decoration:none; font-weight:600}
 
 /* ---------- Footer ---------- */
-footer {
-  text-align: center;
-  padding: 14px;
-  background: var(--secondary);
-  color: white;
-  margin-top: 40px;
-}
+footer{margin-top:18px; text-align:center; padding:18px; color:white; background:var(--secondary); border-radius:8px; max-width:980px; margin-left:auto; margin-right:auto}
+
+/* ---------- Utilities ---------- */
+.small{font-size:0.92rem; color:var(--muted)}
+.badge{display:inline-block; padding:6px 10px; border-radius:999px; background:rgba(2,6,23,0.04); font-weight:600; color:var(--muted); margin-right:8px}
 </style>
 </head>
-
 <body>
 
 <div class="toggle" onclick="toggleDark()">🌙 Dark</div>
 
 <header>
-  <h1>Narsing Beesetti</h1>
-  <p>MuleSoft Developer | Integration Specialist</p>
+  <div class="brand">
+    <div class="logo">NB</div>
+    <div style="text-align:left">
+      <div style="font-size:14px; opacity:0.95">Narsing Beesetti</div>
+      <div style="font-size:12px; opacity:0.85">MuleSoft Developer • Integration Specialist . Production Support</div>
+    </div>
+  </div>
 </header>
 
 <nav>
@@ -145,66 +216,148 @@ footer {
   <a href="#contact">Contact</a>
 </nav>
 
-<section id="about">
-  <h2>About Me</h2>
-  <p>
-    I have 4 years of IT experience with 3 years of relevant experience in MuleSoft.
-    Currently working in a pharma project as a production support engineer and
-    looking for opportunities in development and integration roles.
-  </p>
-</section>
+<main class="container">
 
-<section id="skills">
-  <h2>Skills</h2>
-  <ul>
-    <li>MuleSoft (Anypoint Platform)</li>
-    <li>API Development & Integration</li>
-    <li>Production Support</li>
-    <li>REST APIs</li>
-    <li>CloudHub</li>
-  </ul>
-</section>
+  <section id="about" class="show">
+    <h2>About Me</h2>
+    <div class="about-grid">
+      <div class="card">
+        <p class="lead">
+          I have 4 years of IT experience with 3 years of focused experience in MuleSoft.
+          I have been supporting a Fortune 500 US-based pharmaceutical client, providing production support for a large-scale integration built on MuleSoft Anypoint Platform that connects multiple enterprise applications such as SAP, EDI, SFDC, and custom on-prem and cloud applications. In addition to MuleSoft, I support IBM WebSphere tools including IBM MFT, IBM MQ, and DataPower. The primary objective of my work is to ensure high availability, performance, and reliability of business-critical APIs and integrations that support operations across multiple domains.
+        </p>
 
-<section id="projects">
-  <h2>Projects</h2>
-  <p><strong>Pharma Integration Project</strong></p>
-  <p>
-    Integrated multiple enterprise systems using MuleSoft.
-    Handled deployment, monitoring, and production issue resolution.
-  </p>
-</section>
+        <h3 style="margin-top:14px; color:var(--primary)">Major Responsibilities</h3>
+        <ul class="resp-list">
+          <li>Monitored and supported 600+ MuleSoft APIs and 1000+ file transfers via IBM MFT, ensuring SLA compliance and operational continuity.</li>
+          <li>Performed L2 incident analysis addressing API failures, data transformation issues, connectivity problems, and authentication failures.</li>
+          <li>Used Anypoint Monitoring, Dynatrace, Runtime Manager, and ELK stack to diagnose and resolve production issues quickly.</li>
+          <li>Handled production go-live deployments via Git CI/CD and provided post-deployment validations and hypercare support.</li>
+          <li>Planned and executed standard maintenance activities including certificate renewals and password updates in production environments.</li>
+          <li>Participated in critical P1/P2 outage calls for triage and rapid resolution; coordinated cross-functional teams during incidents.</li>
+          <li>Conducted root cause analysis (RCA), proposed permanent fixes, and collaborated with development teams for enhancements and hotfixes.</li>
+          <li>Managed end-to-end IBM MQ and MFT tasks including creation, configuration, job management, and troubleshooting of queues and transfers.</li>
+          <li>Built custom dashboards in Elasticsearch for log visualization and created alerting mechanisms using Dynatrace Synthetic monitors and Elasticsearch alerts for faster detection.</li>
+          <li>Maintained on-call schedules, created SOPs and documentation, and reduced recurring incidents by identifying common error patterns and proposing fixes.</li>
+          <li>Improved API performance through configuration tuning, connection pool optimization, and retry mechanism enhancements.</li>
+        </ul>
+      </div>
 
-<section id="contact">
-  <h2>Contact</h2>
-  <p>Email: your-email@example.com</p>
-  <p>Phone: +91‑XXXXXXXXXX</p>
-</section>
+      <aside class="card small">
+        <div style="margin-bottom:12px">
+          <div class="badge">Location</div>
+          <div>Chowduvada, Vishakapatnam,AndharaPradesh, India</div>
+        </div>
+        <div style="margin-bottom:12px">
+          <div class="badge">Availability</div>
+          <div>Open to integration and development roles</div>
+        </div>
+        <div>
+          <div class="badge">Focus</div>
+          <div>Production Support • API Reliability • MuleSoft Anypoint</div>
+        </div>
+      </aside>
+    </div>
+  </section>
 
-<footer>
-  © 2026 Narsing Beesetti
-</footer>
+  <section id="skills">
+    <h2>Skills</h2>
+
+    <div class="skill">
+      <div class="skill-title"><span>MuleSoft Anypoint Platform</span><span class="small">90%</span></div>
+      <div class="skill-bar"><div class="skill-fill" data-width="90%"></div></div>
+    </div>
+
+    <div class="skill">
+      <div class="skill-title"><span>API Development & Integration</span><span class="small">85%</span></div>
+      <div class="skill-bar"><div class="skill-fill" data-width="85%"></div></div>
+    </div>
+
+    <div class="skill">
+      <div class="skill-title"><span>Production Support & Incident Management</span><span class="small">88%</span></div>
+      <div class="skill-bar"><div class="skill-fill" data-width="88%"></div></div>
+    </div>
+
+    <div class="skill">
+      <div class="skill-title"><span>IBM MFT / IBM MQ / DataPower</span><span class="small">82%</span></div>
+      <div class="skill-bar"><div class="skill-fill" data-width="82%"></div></div>
+    </div>
+
+    <div class="skill">
+      <div class="skill-title"><span>Monitoring & Observability (Dynatrace, ELK)</span><span class="small">84%</span></div>
+      <div class="skill-bar"><div class="skill-fill" data-width="84%"></div></div>
+    </div>
+
+    <div style="margin-top:14px" class="small">
+      Tools: Anypoint Studio, Runtime Manager, Anypoint Monitoring, Dynatrace, ELK, Git, Jenkins, CloudHub, Postman
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="carousel" aria-label="Project carousel">
+      <article class="project-card">
+        <h3>Pharma Integration Project</h3>
+        <p>Integrated SAP, EDI, SFDC, and custom applications using MuleSoft. Focused on high availability, secure data flows, and operational monitoring.</p>
+      </article>
+
+      <article class="project-card">
+        <h3>API Gateway Implementation</h3>
+        <p>Designed and deployed secure API gateways, implemented policies for authentication, rate limiting, and logging to improve reliability and security.</p>
+      </article>
+
+      <article class="project-card">
+        <h3>CloudHub Migration</h3>
+        <p>Led migration of legacy integrations to CloudHub with minimal downtime, validating performance and ensuring seamless connectivity to on-prem systems.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <p class="small">Email: <a class="contact-list" href="mailto:your-email@example.com">narsingbeesetti06@gmail.com</a></p>
+    <p class="small">Phone: <a class="contact-list" href="tel:+91XXXXXXXXXX">+91‑9494207062</a></p>
+    <p class="small">LinkedIn: <a class="contact-list" href="https://www.linkedin.com/in/beesetti-narsingarao-170549226?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" rel="noopener">linkedin.com/in/yourprofile</a></p>
+    <div style="margin-top:12px" class="small">Available for remote and on-site roles. Open to contract and full-time opportunities.</div>
+  </section>
+
+</main>
+
+<footer>© 2026 Narsing Beesetti</footer>
 
 <script>
-/* Dark Mode */
-function toggleDark() {
-  document.body.classList.toggle("dark");
+/* Dark Mode Toggle */
+function toggleDark(){
+  document.body.classList.toggle('dark');
+  const btn = document.querySelector('.toggle');
+  btn.textContent = document.body.classList.contains('dark') ? '☀️ Light' : '🌙 Dark';
 }
 
-/* Scroll Reveal */
-const sections = document.querySelectorAll("section");
-
-function revealSections() {
+/* Scroll reveal for sections */
+const sections = document.querySelectorAll('section');
+function revealSections(){
   const trigger = window.innerHeight * 0.85;
-  sections.forEach(sec => {
-    if (sec.getBoundingClientRect().top < trigger) {
-      sec.classList.add("show");
+  sections.forEach(sec=>{
+    if(sec.getBoundingClientRect().top < trigger){
+      sec.classList.add('show');
     }
   });
 }
+window.addEventListener('scroll', revealSections);
+window.addEventListener('load', ()=>{
+  revealSections();
+  // animate skill bars after load
+  document.querySelectorAll('.skill-fill').forEach(el=>{
+    const w = el.getAttribute('data-width') || '70%';
+    setTimeout(()=> el.style.width = w, 250);
+  });
+});
 
-window.addEventListener("scroll", revealSections);
-window.addEventListener("load", revealSections);
+/* Smooth typing effect fallback: remove typing border after animation */
+setTimeout(()=>{
+  const t = document.querySelector('.typing');
+  if(t) t.style.borderRight = '0';
+}, 4200);
 </script>
-
 </body>
 </html>
