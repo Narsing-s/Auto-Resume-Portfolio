@@ -1,5 +1,1 @@
-import type { Metadata } from 'next';
-import type { ReactNode } from 'react';
-import './globals.css';
-export const metadata: Metadata={title:'Narsing Beesetti | MuleSoft & Integration',description:'MuleSoft Developer, Integration Specialist and Production Support Engineer.'};
-export default function RootLayout({children}:{children:ReactNode}){return <html lang="en"><body>{children}</body></html>}
+import type { Metadata } from 'next'; import type { ReactNode } from 'react'; import './globals.css'; export const metadata: Metadata={title:'ResumeForge — Build a resume that gets noticed',description:'Create professional resumes, choose a template, and download PDF or Word.'}; export default function RootLayout({children}:{children:ReactNode}){return <html lang="en"><body>{children}</body></html>}
